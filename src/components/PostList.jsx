@@ -1,3 +1,5 @@
+import PostCard from "./PostCard";
+
 function PostList({ posts }) {
   return (
     <div>
@@ -16,5 +18,4 @@ function PostList({ posts }) {
     </div>
   );
 }
-
 export default PostList;
