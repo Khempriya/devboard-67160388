@@ -11,7 +11,7 @@ const POSTS = [
   {
     id: 2,
     title: "ทำไมต้องใช้ Components?",
-    body: "Components ช่วยให้เราแบ่ง UI ออกเป็นชิ้นเล็ก ๆ ที่ reuse ได้",
+    body: "Components ช่วยให้เราแบ่ง UI ออกเป็นชิ้นเล็กๆ ที่ reuse ได้",
   },
   {
     id: 3,
