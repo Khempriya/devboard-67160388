@@ -18,4 +18,5 @@ function PostList({ posts }) {
     </div>
   );
 }
+
 export default PostList;
