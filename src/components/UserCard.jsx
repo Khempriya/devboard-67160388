@@ -2,8 +2,7 @@ function UserCard({ name, email }) {
   const initials = name
     .split(" ")
     .map((n) => n[0])
-    .join("");
-
+    .join(" ");
   return (
     <div
       style={{
@@ -40,5 +39,4 @@ function UserCard({ name, email }) {
     </div>
   );
 }
-
 export default UserCard;
