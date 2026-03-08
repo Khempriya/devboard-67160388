@@ -7,6 +7,7 @@ function PostList({ posts, favorites, onToggleFavorite }) {
   const filtered = posts.filter((post) =>
     post.title.toLowerCase().includes(search.toLowerCase()),
   );
+
   return (
     <div>
       <h2
@@ -18,6 +19,7 @@ function PostList({ posts, favorites, onToggleFavorite }) {
       >
         โพสต์ล่าสุด
       </h2>
+
       {/* Search Input */}
       <input
         type="text"
@@ -28,17 +30,20 @@ function PostList({ posts, favorites, onToggleFavorite }) {
           width: "100%",
           padding: "0.5rem 0.75rem",
           border: "1px solid #cbd5e0",
+          borderRadius: "6px",
           fontSize: "1rem",
           marginBottom: "1rem",
           boxSizing: "border-box",
         }}
       />
+
       {/* ถ้าไม่พบโพสต์ */}
       {filtered.length === 0 && (
         <p style={{ color: "#718096", textAlign: "center", padding: "2rem" }}>
           ไม่พบโพสต์ที่ค้นหา
         </p>
       )}
+
       {/* แสดงรายการโพสต์ */}
       {filtered.map((post) => (
         <PostCard
