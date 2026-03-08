@@ -7,7 +7,6 @@ function PostList({ posts, favorites, onToggleFavorite }) {
   const filtered = posts.filter((post) =>
     post.title.toLowerCase().includes(search.toLowerCase()),
   );
-
   return (
     <div>
       <h2
@@ -54,10 +53,7 @@ function PostList({ posts, favorites, onToggleFavorite }) {
           onToggleFavorite={() => onToggleFavorite(post.id)}
         />
       ))}
-      {posts.map((post) => (
-        <PostCard key={post.id} title={post.title} body={post.body} />
-      ))}
-      <PostCount count={posts.length} />
+      <PostCount count={filtered.length} />
     </div>
   );
 }
