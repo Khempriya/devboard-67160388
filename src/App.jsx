@@ -5,20 +5,18 @@ import UserList from "./components/UserList";
 import AddPostForm from "./components/AddPostForm";
 
 function App() {
-  const [favorites, setFavorites] = useState([]);
-
+  const [favorites, setFavorites] = useState([]); /* เก็บ id ที่ถูกใจ */
+  /* Toggle ถูกใจ/ยกเลิก */
   function handleToggleFavorite(postId) {
-    setFavorites((prev) =>
-      prev.includes(postId)
-        ? prev.filter((id) => id !== postId)
-        : [...prev, postId],
+    setFavorites(
+      (prev) =>
+        prev.includes(postId)
+          ? prev.filter((id) => id !== postId) /* ลบออก */
+          : [...prev, postId] /* เพิ่มเข้า */,
     );
   }
-
   return (
     <div>
-      <Navbar favoriteCount={favorites.length} />
-
       <div
         style={{
           maxWidth: "900px",
@@ -29,6 +27,7 @@ function App() {
           gap: "2rem",
         }}
       >
+        {/* คอลัมน์ซ้าย: โพสต์ */}
         <div>
           <AddPostForm onAddPost={() => {}} /> {/* จะเชื่อมใน wk14 */}
           <PostList
@@ -36,7 +35,7 @@ function App() {
             onToggleFavorite={handleToggleFavorite}
           />
         </div>
-
+        {/* คอลัมน์ขวา: สมาชิก */}
         <div>
           <UserList />
         </div>
@@ -44,4 +43,5 @@ function App() {
     </div>
   );
 }
+
 export default App;
