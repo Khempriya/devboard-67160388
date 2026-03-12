@@ -90,6 +90,7 @@ function PostList({ favorites, onToggleFavorite }) {
           onToggleFavorite={() => onToggleFavorite(post.id)}
         />
       ))}
+      <PostCount count={posts.length} />
     </div>
   );
 }

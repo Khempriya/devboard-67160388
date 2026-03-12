@@ -1,4 +1,5 @@
 function Navbar({ favoriteCount }) {
+  /* รับตัวเลขจาก favoriteCount */
   return (
     <nav
       style={{
@@ -27,7 +28,7 @@ function Navbar({ favoriteCount }) {
           }}
         >
           ❤️ {favoriteCount} ถูกใจ
-        </div>
+        </div> /* ถ้าจำนวนคนกดถูกใจมากกว่า 0 ถึงจะแสดงกล่องสีแดงนี้ขึ้นมา */
       )}
     </nav>
   );

@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import PostList from "./components/PostList";
 import UserList from "./components/UserList";
 import AddPostForm from "./components/AddPostForm";
+import PostCount from "./components/PostCount";
 
 function App() {
   const [favorites, setFavorites] = useState([]); /* เก็บ id ที่ถูกใจ */
