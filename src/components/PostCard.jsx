@@ -2,7 +2,8 @@ import { useState } from "react";
 import CommentList from "./CommentList";
 
 function PostCard({ post, isFavorite, onToggleFavorite }) {
-  const [showComments, setComments] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+
   return (
     <div
       style={{
@@ -17,6 +18,7 @@ function PostCard({ post, isFavorite, onToggleFavorite }) {
       <p style={{ margin: "0 0 0.75rem", color: "#4a5568", lineHeight: 1.6 }}>
         {post.body}
       </p>
+
       <div style={{ display: "flex", gap: "0.5rem" }}>
         {/* ปุ่มถูกใจ */}
         <button
@@ -25,7 +27,7 @@ function PostCard({ post, isFavorite, onToggleFavorite }) {
             background: "none",
             border: "none",
             cursor: "pointer",
-            fontSize: "1.2rem",
+            fontSize: "1rem",
             padding: "0.25rem 0.5rem",
             borderRadius: "4px",
             color: isFavorite ? "#e53e3e" : "#a0aec0",
@@ -33,8 +35,10 @@ function PostCard({ post, isFavorite, onToggleFavorite }) {
         >
           {isFavorite ? "❤️ ถูกใจแล้ว" : "🤍 ถูกใจ"}
         </button>
+
         {/* ปุ่มดูความคิดเห็น */}
         <button
+          onClick={() => setShowComments((prev) => !prev)}
           style={{
             background: "none",
             border: "1px solid #e2e8f0",
@@ -48,6 +52,7 @@ function PostCard({ post, isFavorite, onToggleFavorite }) {
           {showComments ? "▲ ซ่อน" : "▼ ดูความคิดเห็น"}
         </button>
       </div>
+
       {/* แสดง comments เมื่อกด — fetch เกิดขึ้นตอนนี้ */}
       {showComments && <CommentList postId={post.id} />}
     </div>
