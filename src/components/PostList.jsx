@@ -1,12 +1,53 @@
 import PostCard from "./PostCard";
 import PostCount from "./PostCount";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import LoadingSpinner from "./LoadingSpinner";
 
-function PostList({ posts, favorites, onToggleFavorite }) {
+function PostList({ favorites, onToggleFavorite }) {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        setLoading(true);
+        setError(null);
+        const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+        if (!res.ok) throw new Error("ดึงข้อมูลไม่สำเร็จ");
+        const data = await res.json();
+        setPosts(data.slice(0, 20)); // เอาแค่ 20 รายการแรก
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchPosts();
+  }, []); // [] = ทำครั้งเดียวตอน component mount
+
   const filtered = posts.filter((post) =>
     post.title.toLowerCase().includes(search.toLowerCase()),
   );
+
+  if (loading) return <LoadingSpinner />;
+
+  if (error)
+    return (
+      <div
+        style={{
+          padding: "1.5rem",
+          background: "#fff5f5",
+          border: "1px solid #fc8181",
+          borderRadius: "8px",
+          color: "#c53030",
+        }}
+      >
+        เกิดข้อผิดพลาด: {error}
+      </div>
+    );
+
   return (
     <div>
       <h2
@@ -19,7 +60,6 @@ function PostList({ posts, favorites, onToggleFavorite }) {
         โพสต์ล่าสุด
       </h2>
 
-      {/* Search Input */}
       <input
         type="text"
         placeholder="ค้นหาโพสต์..."
@@ -36,26 +76,21 @@ function PostList({ posts, favorites, onToggleFavorite }) {
         }}
       />
 
-      {/* ถ้าไม่พบโพสต์ */}
       {filtered.length === 0 && (
         <p style={{ color: "#718096", textAlign: "center", padding: "2rem" }}>
           ไม่พบโพสต์ที่ค้นหา
         </p>
       )}
 
-      {/* แสดงรายการโพสต์ */}
       {filtered.map((post) => (
         <PostCard
           key={post.id}
-          title={post.title}
-          body={post.body}
+          post={post}
           isFavorite={favorites.includes(post.id)}
           onToggleFavorite={() => onToggleFavorite(post.id)}
         />
       ))}
-      <PostCount count={filtered.length} />
     </div>
   );
 }
-
 export default PostList;
