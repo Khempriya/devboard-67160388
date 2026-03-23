@@ -20,23 +20,24 @@ function FavoritesPage() {
       setPosts(results);
     }
     fetchFavoritePosts();
-  },[favorites]);
-  if (favorites.length === 0 ) {
+  }, [favorites]);
+  if (favorites.length === 0) {
     return (
-        <div
+      <div
         style={{
           maxWidth: "700px",
           margin: "2rem auto",
           padding: "0 1rem",
-          textAlign: "center",></div>
-        }}>
-        <p style={{color:"#718096",fontSize: "1.1rem" }}>
-            ยังไม่มีโพสต์ที่ถูกใจ
+          textAlign: "center",
+        }}
+      >
+        <p style={{ color: "#718096", fontSize: "1.1rem" }}>
+          ยังไม่มีโพสต์ที่ถูกใจ
         </p>
-        <Link to="/" style={{color:"#1e40af"}}>
-        ← กลับหน้าหลัก
+        <Link to="/" style={{ color: "#1e40af" }}>
+          ← กลับหน้าหลัก
         </Link>
-        </div>
+      </div>
     );
   }
   return (
