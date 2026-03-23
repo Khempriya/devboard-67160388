@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useFormAction } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useFavorites } from "../context/FavoritesContext";
 import CommentList from "./CommentList";
 
@@ -31,7 +31,6 @@ function PostCard({ post }) {
       </p>
 
       <div style={{ display: "flex", gap: "0.5rem" }}>
-        {/* ปุ่มถูกใจ */}
         <button
           onClick={() => toggleFavorite(post.id)}
           style={{
@@ -42,10 +41,9 @@ function PostCard({ post }) {
             color: isFavorite ? "#e53e3e" : "#a0aec0",
           }}
         >
-          {isFavorite ? "❤️ ถูกใจแล้ว" : "🤍 ถูกใจ"}
+          {isFavorite ? "❤️" : "🤍"}
         </button>
 
-        {/* ปุ่มดูความคิดเห็น */}
         <button
           onClick={() => setShowComments((prev) => !prev)}
           style={{
@@ -58,11 +56,10 @@ function PostCard({ post }) {
             color: "#4a5568",
           }}
         >
-          {showComments ? "▲ ซ่อน" : "▼ ดูความคิดเห็น"}
+          {showComments ? "▲ ซ่อน" : "▼ ความคิดเห็น"}
         </button>
       </div>
 
-      {/* แสดง comments เมื่อกด — fetch เกิดขึ้นตอนนี้ */}
       {showComments && <CommentList postId={post.id} />}
     </div>
   );
