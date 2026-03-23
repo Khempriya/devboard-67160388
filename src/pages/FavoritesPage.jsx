@@ -9,7 +9,6 @@ function FavoritesPage() {
   useEffect(() => {
     if (favorites.length === 0) return;
 
-    // ดึงเฉพาะโพสต์ที่ถูกใจ
     async function fetchFavoritePosts() {
       const results = await Promise.all(
         favorites.map((id) =>
