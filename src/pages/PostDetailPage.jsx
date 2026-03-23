@@ -5,7 +5,7 @@ import CommentList from "../components/CommentList";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 function PostDetailPage() {
-  const { id } = useParams();
+  const { id } = useParams(); // ดึง id จาก URL เช่น /posts/3 → id = "3"
   const { favorites, toggleFavorite } = useFavorites();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);

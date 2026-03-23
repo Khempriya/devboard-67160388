@@ -9,6 +9,7 @@ function FavoritesPage() {
   useEffect(() => {
     if (favorites.length === 0) return;
 
+    // ดึงเฉพาะโพสต์ที่ถูกใจ
     async function fetchFavoritePosts() {
       const results = await Promise.all(
         favorites.map((id) =>
@@ -21,6 +22,7 @@ function FavoritesPage() {
     }
     fetchFavoritePosts();
   }, [favorites]);
+
   if (favorites.length === 0) {
     return (
       <div
@@ -40,6 +42,7 @@ function FavoritesPage() {
       </div>
     );
   }
+
   return (
     <div style={{ maxWidth: "700px", margin: "2rem auto", padding: "0 1rem" }}>
       <h2
@@ -88,4 +91,5 @@ function FavoritesPage() {
     </div>
   );
 }
+
 export default FavoritesPage;
