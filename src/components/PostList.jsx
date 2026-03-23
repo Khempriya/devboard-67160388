@@ -1,9 +1,10 @@
+import { useState, useEffect } from "react";
 import PostCard from "./PostCard";
-import PostCount from "./PostCount";
-import { useEffect, useState } from "react";
 import LoadingSpinner from "./LoadingSpinner";
+import { useFavorites } from "../context/FavoritesContext";
 
-function PostList({ favorites, onToggleFavorite }) {
+function PostList() {
+  const { favorites, toggleFavorite } = useFavorites();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,7 +26,7 @@ function PostList({ favorites, onToggleFavorite }) {
       }
     }
     fetchPosts();
-  }, []); // [] = ทำครั้งเดียวตอน component mount
+  }, []);
 
   const filtered = posts.filter((post) =>
     post.title.toLowerCase().includes(search.toLowerCase()),
@@ -87,11 +88,11 @@ function PostList({ favorites, onToggleFavorite }) {
           key={post.id}
           post={post}
           isFavorite={favorites.includes(post.id)}
-          onToggleFavorite={() => onToggleFavorite(post.id)}
+          onToggleFavorite={() => toggleFavorite(post.id)}
         />
       ))}
-      <PostCount count={posts.length} />
     </div>
   );
 }
+
 export default PostList;
