@@ -5,7 +5,6 @@ import HomePage from "./pages/HomePage";
 import PostDetailPage from "./pages/PostDetailPage";
 import ProfilePage from "./pages/ProfilePage";
 import FavoritesPage from "./pages/FavoritesPage";
-import PostCount from "./components/PostCount";
 
 function App() {
   return (
