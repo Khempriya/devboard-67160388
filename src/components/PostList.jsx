@@ -1,25 +1,27 @@
 import { useState, useEffect } from "react";
+import { useFavorites } from "../context/FavoritesContext";
 import PostCard from "./PostCard";
 import LoadingSpinner from "./LoadingSpinner";
-import { useFavorites } from "../context/FavoritesContext";
 import PostCount from "./PostCount";
-
+//ศูนย์กลาง รายการรวมโพสและสมาชิก พื้นหลัง
+//PostCard และ LoadingSpinner มารวมกัน
 function PostList() {
   const { favorites, toggleFavorite } = useFavorites();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
-
+  //มีการจอง State
   useEffect(() => {
     async function fetchPosts() {
       try {
         setLoading(true);
         setError(null);
         const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+        //ดึงข้อมูลโพสต์จำลองจาก jsonplaceholder
         if (!res.ok) throw new Error("ดึงข้อมูลไม่สำเร็จ");
         const data = await res.json();
-        setPosts(data.slice(0, 20)); // เอาแค่ 20 รายการแรก
+        setPosts(data.slice(0, 20)); // เอาแค่ 20 รายการแรกมาแสดง
       } catch (err) {
         setError(err.message);
       } finally {
@@ -29,13 +31,16 @@ function PostList() {
     fetchPosts();
   }, []);
 
-  const filtered = posts.filter((post) =>
-    post.title.toLowerCase().includes(search.toLowerCase()),
-  );
-
+  const filtered = posts.filter(
+    (
+      post, //สร้างตัวแปร filtered มารองรับก่อน
+    ) => post.title.toLowerCase().includes(search.toLowerCase()),
+  ); //.toLowerCase()ค้นหาได้เจอเสมอ ไม่ว่าจะพิมพ์พิมพ์เล็กหรือพิมพ์ใหญ่
+  //หัวข้อโพสต์ (title) มีคำค้นหา (search) ซ่อนอยู่หรือไม่
   if (loading) return <LoadingSpinner />;
-
+  //ถ้าดึงข้อมูลสำเร็จ แสดงแอนิเมชันวงกลมหมุนๆ
   if (error)
+    //และถ้าดึงข้อมูลไม่สำเร็จ ก็จะแสดงกล่องข้อความสีแดง
     return (
       <div
         style={{
@@ -93,7 +98,7 @@ function PostList() {
       ))}
       <PostCount count={posts.length} />
     </div>
-  );
+  ); //จำนวนโพส
 }
 
 export default PostList;

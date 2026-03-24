@@ -1,26 +1,28 @@
 import { useState, useEffect } from "react";
 import LoadingSpinner from "./LoadingSpinner";
-
+//รายการคอมเม้น
 function CommentList({ postId }) {
-  const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // postId รับ ID ของโพสต์มาจากคอมโพเนนต์แม่ เพื่อให้รู้ว่าต้องไปดึงคอมเมนต์ของโพสต์ไหน
+  const [comments, setComments] = useState([]); //เก็บอะเรย์ของข้อมูลความคิดเห็นที่ดึงมาได้ และเริ่มต้นต้องเป็นค่าว่าง
+  const [loading, setLoading] = useState(true); //เก็บสถานะว่ากำลังโหลดข้อมูลอยู่หรือไม่;
+  const [error, setError] = useState(null); //เก็บข้อความแจ้งเตือนกรณีดึงข้อมูลไม่สำเร็จ
 
   useEffect(() => {
+    //เพื่อสั่งให้ฟังก์ชัน fetchComments ทำงาน
     async function fetchComments() {
       try {
         setLoading(true);
         const res = await fetch(
           `https://jsonplaceholder.typicode.com/posts/${postId}/comments`,
-        );
+        ); //เรียก API โดยใช้ postId ที่เปลี่ยนได้
         if (!res.ok) throw new Error("ดึงความคิดเห็นไม่สำเร็จ");
         const data = await res.json();
-        setComments(data);
+        setComments(data); //แปลง response → เก็บลง state
       } catch (err) {
-        setError(err.message);
+        setError(err.message); //ถ้ามี error → เก็บข้อความ error
       } finally {
         setLoading(false);
-      }
+      } //ไม่ว่าจะสำเร็จหรือพัง → ปิด loading
     }
     fetchComments();
   }, [postId]); // [] = ทำครั้งเดียวตอน component mount

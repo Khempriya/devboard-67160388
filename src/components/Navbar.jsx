@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; //กดเปลี่ยนหน้าไปมาได้โดยที่หน้าเว็บไม่ต้องรีเฟรชใหม่
 import { useFavorites } from "../context/FavoritesContext";
-
+//แถบเมนูด้านบน
 function Navbar() {
-  const { favorites } = useFavorites();
+  const { favorites } = useFavorites(); //เพื่อดึงข้อมูล favorites รายการที่ผู้ใช้กดถูกใจไว้มา
   return (
     <nav
       style={{
@@ -40,6 +40,6 @@ function Navbar() {
       </div>
     </nav>
   );
-}
+} //มีการเช็คเงื่อนไขตามจำนวน favorites.length คือบอกจำนวนการถูกใจแต่ถ้าไม่มีก็จะไม่มีเลขขึ้นบนหน้าจอ
 
 export default Navbar;

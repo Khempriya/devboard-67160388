@@ -2,12 +2,16 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useFavorites } from "../context/FavoritesContext";
 import CommentList from "./CommentList";
-
+//กล่องข้อความแสดงโพส
 function PostCard({ post }) {
+  //post (Props): รับข้อมูลของโพสต์ 1 โพสต์ id titleมาจากคอมโพเนนต์แม่เพื่อนำมาแสดงผล
   const { favorites, toggleFavorite } = useFavorites();
+  //เรียกใช้ Context เพื่อดึงฟังก์ชันและข้อมูลส่วนกลางมาใช้:
+  //favorites: รายการ ID ของโพสต์ที่ถูกใจทั้งหมด/toggleFavorite: ฟังก์ชันสำหรับกดเพิ่ม/ลบโพสต์นี้ออกจากรายการถูกใจ
   const isFavorite = favorites.includes(post.id);
+  //เป็นตัวแปรที่เช็คว่า โพสต์ปัจจุบันนี้ (post.id) อยู่ในรายการ favorites หรือเปล่า
   const [showComments, setShowComments] = useState(false);
-
+  //ผู้ใช้กำลังเปิดดูคอมเมนต์ของโพสต์นี้อยู่หรือไม่" โดยเริ่มต้นกำหนดเป็น false ซ่อนไว้ก่อน
   return (
     <div
       style={{
@@ -61,8 +65,8 @@ function PostCard({ post }) {
       </div>
 
       {showComments && <CommentList postId={post.id} />}
-    </div>
+    </div> //การประกอบร่างกับ CommentList
   );
 }
-
+//&& ทำหน้าที่บอกว่า "ถ้า showComments เป็น true เท่านั้น ถึงจะแสดงคอมโพเนนต์ <CommentList> ออกมา" พร้อมกับส่ง post.id ไปให้ CommentList ไปโหลดข้อมูลต่อ
 export default PostCard;

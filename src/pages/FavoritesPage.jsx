@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useFavorites } from "../context/FavoritesContext";
-
+//โพสต์ที่ถูกใจ
 function FavoritesPage() {
   const { favorites, toggleFavorite } = useFavorites();
   const [posts, setPosts] = useState([]);
-
+  // ถ้าไม่มีของที่ถูกใจเลย ไม่ต้องทำอะไร
   useEffect(() => {
     if (favorites.length === 0) return;
 
     async function fetchFavoritePosts() {
       const results = await Promise.all(
+        //ดึงข้อมูลหลายตัวพร้อมกันและมารวมกัน
         favorites.map((id) =>
           fetch(`https://jsonplaceholder.typicode.com/posts/${id}`).then((r) =>
             r.json(),
@@ -21,7 +22,7 @@ function FavoritesPage() {
     }
     fetchFavoritePosts();
   }, [favorites]);
-
+  // ถ้าไม่มีของที่ถูกใจเลย การจัดการหน้าจอว่างเปล่า
   if (favorites.length === 0) {
     return (
       <div

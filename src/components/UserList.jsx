@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import UserCard from "./UserCard";
 import LoadingSpinner from "./LoadingSpinner";
-
+//รายชื่อผู้ใช้
 function UserList() {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+  const [users, setUsers] = useState([]); //users (ไว้เก็บรายชื่อ)
+  const [loading, setLoading] = useState(true); //loading (ไว้โชว์สถานะโหลด)
+  const [error, setError] = useState(null);
   useEffect(() => {
     async function fetchUsers() {
       try {
         const res = await fetch("https://jsonplaceholder.typicode.com/users");
-        const data = await res.json();
-        setUsers(data);
-      } catch {
-        // ไม่แสดง error ในตัวอย่างนี้ (นักศึกษาลองเพิ่มเองได้)
+        const data = await res.json(); //ดึงข้อมูลมา
+        setUsers(data); //ข้อมูลมายัดใส่ setUsers ทันที
+      } catch (err) {
+        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -22,6 +22,22 @@ function UserList() {
   }, []);
 
   if (loading) return <LoadingSpinner />;
+  //ถ้าดึงข้อมูลสำเร็จ แสดงแอนิเมชันวงกลมหมุนๆ
+  if (error)
+    //และถ้าดึงข้อมูลไม่สำเร็จ ก็จะแสดงกล่องข้อความสีแดง
+    return (
+      <div
+        style={{
+          padding: "1.5rem",
+          background: "#fff5f5",
+          border: "1px solid #fc8181",
+          borderRadius: "8px",
+          color: "#c53030",
+        }}
+      >
+        เกิดข้อผิดพลาด: {error}
+      </div>
+    );
 
   return (
     <div>
